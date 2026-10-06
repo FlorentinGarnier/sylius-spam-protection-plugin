@@ -14,11 +14,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { php: '8.2', sylius: '1.12.*' }
-          - { php: '8.2', sylius: '1.13.*' }
-          - { php: '8.3', sylius: '1.14.*' }
-    name: PHP ${{ matrix.php }}, Sylius ${{ matrix.sylius }}
+        php: ['8.2', '8.3']
+    name: PHP ${{ matrix.php }}, Sylius 1.14
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -26,6 +23,5 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
           extensions: intl, gd, exif, fileinfo
-      - run: composer require --no-update --no-interaction "sylius/sylius:${{ matrix.sylius }}"
       - uses: ramsey/composer-install@v3
       - run: vendor/bin/phpunit

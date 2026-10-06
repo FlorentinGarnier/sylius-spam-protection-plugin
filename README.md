@@ -4,7 +4,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/florentingarnier/sylius-spam-protection-plugin.svg)](https://packagist.org/packages/florentingarnier/sylius-spam-protection-plugin)
 [![Total Downloads](https://img.shields.io/packagist/dt/florentingarnier/sylius-spam-protection-plugin.svg)](https://packagist.org/packages/florentingarnier/sylius-spam-protection-plugin)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-![Sylius](https://img.shields.io/badge/sylius-1.12%20to%201.14-1abb9c.svg)
+![Sylius](https://img.shields.io/badge/sylius-1.14-1abb9c.svg)
 
 Protects the public forms of your Sylius shop against spam bots, without reCAPTCHA and without any puzzle for
 your customers. It relies on
@@ -21,11 +21,11 @@ and gibberish detection.
 ## Requirements
 
 - PHP 8.2 or later
-- Sylius 1.12 to 1.14
+- Sylius 1.14. Sylius 1.12 and 1.13 are no longer maintained: their dependencies have security advisories that
+  will never be fixed. Use version 0.1 of the plugin with them.
 - JavaScript in the customer's browser
 
-Every Sylius 1.x version requires `api-platform/core` 2.7, whose releases are all affected by security
-advisories. Composer 2.9 and later refuses to install them unless your project ignores these advisories, as
+Sylius 1.14 requires `api-platform/core` 2.7, whose releases are all affected by security advisories. Composer 2.9 and later refuses to install them unless your project ignores these advisories, as
 this plugin does for its own CI in [composer.json](composer.json) (`config.policy.advisories.ignore-id`). This
 concerns Sylius itself, not the plugin, which does not use API Platform.
 

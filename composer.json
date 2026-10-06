@@ -24,7 +24,7 @@
     "require": {
         "php": "^8.2",
         "florentingarnier/spam-protection-bundle": "^0.2",
-        "sylius/sylius": "^1.12"
+        "sylius/sylius": "^1.14"
     },
     "require-dev": {
         "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
@@ -45,11 +45,10 @@
         "policy": {
             "advisories": {
                 "ignore-id": {
-                    "PKSA-8kfs-m8zw-ggzs": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
-                    "PKSA-3ncz-km6v-5vjr": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
-                    "PKSA-gs8r-6kz6-pp56": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
-                    "PKSA-gnn4-pxdg-q76m": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
-                    "PKSA-dsd6-6541-26zs": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform."
+                    "PKSA-8kfs-m8zw-ggzs": "Sylius 1.14 requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-3ncz-km6v-5vjr": "Sylius 1.14 requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-gs8r-6kz6-pp56": "Sylius 1.14 requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-gnn4-pxdg-q76m": "Sylius 1.14 requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform."
                 }
             }
         }
