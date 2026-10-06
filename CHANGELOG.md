@@ -8,6 +8,13 @@ changes.
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-06
+
+### Fixed
+
+- A theme that renders `form.spam_protection` itself before calling the form template event no longer fails
+  with "Field "spam_protection" has already been rendered": the plugin skips a field that is already rendered.
+
 ## [0.2.0] - 2026-10-06
 
 ### Removed
@@ -23,6 +30,7 @@ changes.
   through the shop template events. Supports Sylius 1.12 to 1.14 and requires
   florentingarnier/spam-protection-bundle 0.2.
 
-[Unreleased]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/releases/tag/v0.1.0

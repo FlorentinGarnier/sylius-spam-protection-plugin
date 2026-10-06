@@ -34,7 +34,7 @@ final class FlorentinGarnierSyliusSpamProtectionExtension extends Extension impl
 
     /**
      * Shop templates end their forms with render_rest set to false, so the protection is rendered through their template events.
-     * A theme that already renders the field explicitly is unaffected: Twig never renders a form field twice.
+     * A theme that already renders the field explicitly is unaffected: the template skips a field that is already rendered.
      */
     public function prepend(ContainerBuilder $container): void
     {

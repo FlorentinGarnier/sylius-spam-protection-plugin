@@ -82,7 +82,8 @@ automatically. The plugin renders the protection in the forms' template events, 
 If your theme overrides these templates:
 
 - **It still calls the template events:** nothing to do.
-- **It renders `form.spam_protection` itself:** nothing to do either. Twig never renders a form field twice.
+- **It renders `form.spam_protection` itself:** nothing to do either. The plugin skips a field that is already
+  rendered.
 - **It calls neither:** render the field in the form with `{{ form_row(form.spam_protection) }}`.
 
 To remove the block from an event, for example when your theme renders the field elsewhere:
