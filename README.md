@@ -24,6 +24,11 @@ and gibberish detection.
 - Sylius 1.12 to 1.14
 - JavaScript in the customer's browser
 
+Every Sylius 1.x version requires `api-platform/core` 2.7, whose releases are all affected by security
+advisories. Composer 2.9 and later refuses to install them unless your project ignores these advisories, as
+this plugin does for its own CI in [composer.json](composer.json) (`config.policy.advisories.ignore-id`). This
+concerns Sylius itself, not the plugin, which does not use API Platform.
+
 ### Sylius 2
 
 Sylius 2 is not supported yet. Two changes are needed:

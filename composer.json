@@ -41,6 +41,17 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "policy": {
+            "advisories": {
+                "ignore-id": {
+                    "PKSA-8kfs-m8zw-ggzs": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-3ncz-km6v-5vjr": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-gs8r-6kz6-pp56": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-gnn4-pxdg-q76m": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform.",
+                    "PKSA-dsd6-6541-26zs": "Sylius 1.x requires api-platform/core 2.7, which has no patched release. This plugin does not use API Platform."
+                }
+            }
+        }
     }
 }
