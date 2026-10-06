@@ -1,0 +1,46 @@
+{
+    "name": "florentingarnier/sylius-spam-protection-plugin",
+    "description": "Protects the Sylius shop contact, registration and password reset forms with florentingarnier/spam-protection-bundle.",
+    "type": "sylius-plugin",
+    "license": "MIT",
+    "homepage": "https://github.com/FlorentinGarnier/sylius-spam-protection-plugin",
+    "authors": [
+        {
+            "name": "Florentin Garnier",
+            "homepage": "https://github.com/FlorentinGarnier"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/issues",
+        "source": "https://github.com/FlorentinGarnier/sylius-spam-protection-plugin",
+        "security": "https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/security/policy"
+    },
+    "keywords": [
+        "sylius",
+        "sylius-plugin",
+        "captcha",
+        "spam"
+    ],
+    "require": {
+        "php": "^8.2",
+        "florentingarnier/spam-protection-bundle": "^0.2",
+        "sylius/sylius": "^1.12"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
+        "symfony/cache": "^5.4 || ^6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "FlorentinGarnier\\SyliusSpamProtectionPlugin\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FlorentinGarnier\\SyliusSpamProtectionPlugin\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
