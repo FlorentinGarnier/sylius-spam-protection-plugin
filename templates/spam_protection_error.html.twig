@@ -1,0 +1,5 @@
+{# Sylius renders no error of the form itself in these forms: the rejection would go unnoticed. #}
+{% set form = hookable_metadata.context.form ?? form %}
+{% for error in form.vars.errors|filter(error => error.message == 'florentin_garnier_spam_protection.invalid') %}
+    <div class="alert alert-danger ui negative message" role="alert" data-test-spam-protection-error>{{ error.message|trans }}</div>
+{% endfor %}

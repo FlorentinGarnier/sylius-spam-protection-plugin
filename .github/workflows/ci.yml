@@ -4,18 +4,41 @@ on:
   push:
     branches: [main]
   pull_request:
+  schedule:
+    - cron: '0 1 * * 6' # Every Saturday, to catch new Sylius releases
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
+      # The combinations tested by Sylius itself, within the PHP and Symfony versions required by the plugin
+      # (PHP 8.2 or later, Symfony 5.4, 6.4, 7.4 or 8). Symfony 8 requires PHP 8.4.1 or later.
+      # Behat and its extensions support neither Symfony 5.4 nor Symfony 8: they are removed from these jobs.
       matrix:
-        php: ['8.2', '8.3']
-    name: PHP ${{ matrix.php }}, Sylius 1.14
+        include:
+          - { sylius: '~1.14.0', symfony: '~5.4.0', php: '8.2', behat: 'no' }
+          - { sylius: '~1.14.0', symfony: '~6.4.0', php: '8.3' }
+          - { sylius: '~2.0.0', symfony: '~6.4.0', php: '8.2' }
+          - { sylius: '~2.0.0', symfony: '~7.4.0', php: '8.3' }
+          - { sylius: '~2.1.0', symfony: '~6.4.0', php: '8.3' }
+          - { sylius: '~2.1.0', symfony: '~7.4.0', php: '8.4' }
+          - { sylius: '~2.2.0', symfony: '~6.4.0', php: '8.3' }
+          - { sylius: '~2.2.0', symfony: '~7.4.0', php: '8.5' }
+          - { sylius: '~2.3.0', symfony: '~6.4.0', php: '8.4' }
+          - { sylius: '~2.3.0', symfony: '~7.4.0', php: '8.5' }
+          - { sylius: '~2.3.0', symfony: '~8.1.0', php: '8.5', behat: 'no' }
+    name: Sylius ${{ matrix.sylius }}, Symfony ${{ matrix.symfony }}, PHP ${{ matrix.php }}
+    env:
+      APP_ENV: test
     steps:
       - uses: actions/checkout@v4
       - uses: shivammathur/setup-php@v2
@@ -23,5 +46,63 @@ jobs:
           php-version: ${{ matrix.php }}
           coverage: none
           extensions: intl, gd, exif, fileinfo
+          tools: flex
+      - name: Validate composer.json
+        run: composer validate --strict --no-check-lock
+      - name: Restrict the Sylius and Symfony versions
+        run: |
+          composer config extra.symfony.require "${{ matrix.symfony }}"
+          composer require --no-update --no-interaction "sylius/sylius:${{ matrix.sylius }}"
+      - name: Remove Behat
+        if: matrix.behat == 'no'
+        run: >-
+          composer remove --dev --no-update --no-interaction
+          behat/behat dmore/behat-chrome-extension dmore/chrome-mink-driver friends-of-behat/mink
+          friends-of-behat/mink-browserkit-driver friends-of-behat/mink-debug-extension friends-of-behat/mink-extension
+          friends-of-behat/page-object-extension friends-of-behat/symfony-extension friends-of-behat/variadic-extension
       - uses: ramsey/composer-install@v3
-      - run: vendor/bin/phpunit
+      - name: Coding standard
+        run: vendor/bin/ecs check
+      - name: Static analysis
+        run: vendor/bin/phpstan analyse --no-progress ${{ matrix.behat == 'no' && 'config src tests/Unit tests/Integration' || '' }}
+      - name: Unit tests
+        run: vendor/bin/phpunit --testsuite unit
+      - name: Integration tests
+        run: vendor/bin/phpunit --testsuite integration
+      - name: Validate container
+        run: vendor/bin/console lint:container
+
+  behat:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { sylius: '~2.2.0', symfony: '~7.4.0', php: '8.3' }
+          - { sylius: '~2.3.0', symfony: '~7.4.0', php: '8.5' }
+    name: Behat, Sylius ${{ matrix.sylius }}, Symfony ${{ matrix.symfony }}, PHP ${{ matrix.php }}
+    env:
+      APP_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the Sylius Test Application
+        uses: SyliusLabs/BuildTestAppAction@v4
+        with:
+          e2e_js: 'yes'
+          load_fixtures: 'no'
+          database: 'mysql:8.4'
+          node_version: '22.x'
+          php_version: ${{ matrix.php }}
+          sylius_version: ${{ matrix.sylius }}
+          symfony_version: ${{ matrix.symfony }}
+      - name: Run Behat
+        run: vendor/bin/behat --strict --no-interaction -f progress
+      - name: Upload Behat logs
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: Behat logs - Sylius ${{ matrix.sylius }}
+          path: |
+            etc/build/
+            var/log/
+          if-no-files-found: ignore

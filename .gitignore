@@ -3,3 +3,8 @@
 /.phpunit.cache/
 /.idea/
 /.phpunit.result.cache
+/var/
+/tests/TestApplication/.env.local
+/tests/TestApplication/.env.*.local
+/behat.yml
+/.php-version

@@ -12,7 +12,7 @@
 ## Checklist
 
 - [ ] I added or updated tests that fail without this change
-- [ ] `vendor/bin/phpunit` passes
+- [ ] `vendor/bin/phpunit`, `vendor/bin/ecs check` and `vendor/bin/phpstan analyse` pass
 - [ ] I updated the documentation (README) if the behavior or the API changed
 - [ ] I described the change in the `Unreleased` section of CHANGELOG.md
 - [ ] I have read the [Code of Conduct](https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/blob/main/CODE_OF_CONDUCT.md)

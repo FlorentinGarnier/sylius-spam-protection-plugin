@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace FlorentinGarnier\SyliusSpamProtectionPlugin\DependencyInjection;
 
+use Sylius\Bundle\CoreBundle\SyliusCoreBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -21,10 +22,23 @@ use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 final class FlorentinGarnierSyliusSpamProtectionExtension extends Extension implements PrependExtensionInterface
 {
+    private const BLOCKS = [
+        'florentin_garnier_spam_protection_error' => ['template' => '@FlorentinGarnierSyliusSpamProtectionPlugin/spam_protection_error.html.twig', 'priority' => 1000],
+        'florentin_garnier_spam_protection' => ['template' => '@FlorentinGarnierSyliusSpamProtectionPlugin/spam_protection.html.twig', 'priority' => -100],
+    ];
+
+    /** Sylius 1 */
     private const FORM_TEMPLATE_EVENTS = [
         'sylius.shop.contact.request.form',
         'sylius.shop.register.form',
         'sylius.shop.request_password_reset_token.form',
+    ];
+
+    /** Sylius 2 */
+    private const FORM_HOOKS = [
+        'sylius_shop.contact.contact_request.content.form',
+        'sylius_shop.account.register.content.form',
+        'sylius_shop.account.forgotten_password.content.form_container.form',
     ];
 
     public function load(array $configs, ContainerBuilder $container): void
@@ -33,15 +47,23 @@ final class FlorentinGarnierSyliusSpamProtectionExtension extends Extension impl
     }
 
     /**
-     * Shop templates end their forms with render_rest set to false, so the protection is rendered through their template events.
+     * Shop templates end their forms with render_rest set to false, so the protection is rendered through their template
+     * events (Sylius 1) or Twig Hooks (Sylius 2).
      * A theme that already renders the field explicitly is unaffected: the template skips a field that is already rendered.
+     * The rejection message is rendered at the top of the form, as these forms do not render their own errors.
      */
     public function prepend(ContainerBuilder $container): void
     {
-        $block = ['template' => '@FlorentinGarnierSyliusSpamProtectionPlugin/spam_protection.html.twig', 'priority' => -100];
+        if ((int) SyliusCoreBundle::MAJOR_VERSION >= 2) {
+            $container->prependExtensionConfig('sylius_twig_hooks', [
+                'hooks' => array_fill_keys(self::FORM_HOOKS, self::BLOCKS),
+            ]);
+
+            return;
+        }
 
         $container->prependExtensionConfig('sylius_ui', [
-            'events' => array_fill_keys(self::FORM_TEMPLATE_EVENTS, ['blocks' => ['florentin_garnier_spam_protection' => $block]]),
+            'events' => array_fill_keys(self::FORM_TEMPLATE_EVENTS, ['blocks' => self::BLOCKS]),
         ]);
     }
 }

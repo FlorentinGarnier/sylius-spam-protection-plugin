@@ -1,0 +1,42 @@
+imports:
+    - tests/Behat/Resources/suites.yml
+
+default:
+    calls:
+        # E_ALL without the deprecations, which come from the dependencies (e.g. Mink on PHP 8.5).
+        error_reporting: 8191
+
+    formatters:
+        pretty:
+            verbose: true
+            paths: false
+            snippets: false
+
+    extensions:
+        DMore\ChromeExtension\Behat\ServiceContainer\ChromeExtension: ~
+
+        FriendsOfBehat\MinkDebugExtension:
+            directory: etc/build
+            clean_start: false
+            screenshot: true
+
+        Behat\MinkExtension:
+            base_url: "%env(BEHAT_BASE_URL)%"
+            default_session: symfony
+            javascript_session: chrome
+            sessions:
+                symfony:
+                    symfony: ~
+                chrome:
+                    chrome:
+                        api_url: http://127.0.0.1:9222
+                        validate_certificate: false
+            show_auto: false
+
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: vendor/sylius/test-application/config/bootstrap.php
+            kernel:
+                class: Sylius\TestApplication\Kernel
+                environment: test
+
+        FriendsOfBehat\VariadicExtension: ~

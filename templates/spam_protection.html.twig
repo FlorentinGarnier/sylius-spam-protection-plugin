@@ -1,3 +1,5 @@
+{# Sylius 2 passes the form through the Twig Hooks context, Sylius 1 through the template event context. #}
+{% set form = hookable_metadata.context.form ?? form %}
 {% if not form.spam_protection.rendered %}
     {{ form_row(form.spam_protection) }}
 {% endif %}

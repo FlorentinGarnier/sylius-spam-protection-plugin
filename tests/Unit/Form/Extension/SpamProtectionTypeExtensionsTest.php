@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace FlorentinGarnier\SyliusSpamProtectionPlugin\Tests\Form\Extension;
+namespace Tests\FlorentinGarnier\SyliusSpamProtectionPlugin\Unit\Form\Extension;
 
 use FlorentinGarnier\SpamProtection\IpReputation\IpReputation;
 use FlorentinGarnier\SpamProtection\IpReputation\IpReputationList;
@@ -26,6 +26,7 @@ use Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType;
 use Sylius\Bundle\UserBundle\Form\Type\UserRequestPasswordResetType;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -60,6 +61,9 @@ final class SpamProtectionTypeExtensionsTest extends TypeTestCase
         self::assertSame($contentFields, $field->getOption('content_fields'));
     }
 
+    /**
+     * @return list<FormExtensionInterface>
+     */
     protected function getExtensions(): array
     {
         $ipReputation = new IpReputation(new IpReputationList(sys_get_temp_dir() . '/missing_ip_reputation_list.php'));

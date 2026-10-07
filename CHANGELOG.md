@@ -8,6 +8,27 @@ changes.
 
 ## [Unreleased]
 
+### Added
+
+- Support for Sylius 2: the protection is rendered through the shop Twig hooks. The re-renders of the
+  registration Live Component are not verified, so they neither consume the token nor count as rejected
+  attempts, and they keep the token issued with the page, which would otherwise be too young when the visitor
+  submits the form right after the last field.
+
+### Changed
+
+- The plugin requires the Symfony components it uses directly, in the versions supported by both Sylius and
+  florentingarnier/spam-protection-bundle: 5.4, 6.4, 7.4 or 8. The CI tests the PHP and Symfony versions that
+  Sylius tests for each of its versions.
+- Development follows the Sylius plugin skeleton: integration tests on the Sylius Test Application, Behat
+  scenarios in Chrome and without JavaScript, Sylius coding standard (ECS) and PHPStan at the maximum level, run
+  in CI against the supported Sylius versions.
+
+### Fixed
+
+- A rejected visitor is now told so: the Sylius shop does not render the errors of the contact, registration
+  and password reset forms, so the plugin renders its rejection message at the top of these forms.
+
 ## [0.2.1] - 2026-10-06
 
 ### Fixed

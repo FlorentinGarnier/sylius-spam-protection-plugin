@@ -1,0 +1,24 @@
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+
+parameters:
+    level: max
+    paths:
+        - config
+        - src
+        - tests
+
+    # The plugin supports several Sylius major versions.
+    dynamicConstantNames:
+        - Sylius\Bundle\CoreBundle\SyliusCoreBundle::MAJOR_VERSION
+
+    # FormView::$vars is only typed as an array since Symfony 7 (Sylius 2): the check is needed on Symfony 6.4.
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        -
+            identifier: function.alreadyNarrowedType
+            path: src/Form/Extension/LiveComponentRenderTypeExtension.php
+        -
+            identifier: staticMethod.alreadyNarrowedType
+            path: tests/Unit/Form/Extension/LiveComponentRenderTypeExtensionTest.php

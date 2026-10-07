@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace FlorentinGarnier\SyliusSpamProtectionPlugin\Tests\Templates;
+namespace Tests\FlorentinGarnier\SyliusSpamProtectionPlugin\Unit\Templates;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\AppVariable;
@@ -38,6 +38,11 @@ final class SpamProtectionTemplateTest extends TestCase
         self::assertSame(1, substr_count($this->render(self::PLUGIN_TEMPLATE), self::FIELD));
     }
 
+    public function testItRendersTheFieldOfTheTwigHookContext(): void
+    {
+        self::assertSame(1, substr_count($this->render(self::PLUGIN_TEMPLATE, inHook: true), self::FIELD));
+    }
+
     public function testItSkipsTheFieldAlreadyRenderedByTheTheme(): void
     {
         $html = $this->render('{{ form_widget(form.spam_protection) }}' . self::PLUGIN_TEMPLATE);
@@ -45,10 +50,10 @@ final class SpamProtectionTemplateTest extends TestCase
         self::assertSame(1, substr_count($html, self::FIELD));
     }
 
-    private function render(string $page): string
+    private function render(string $page, bool $inHook = false): string
     {
         $templates = new FilesystemLoader(\dirname((string) (new \ReflectionClass(AppVariable::class))->getFileName()) . '/Resources/views/Form');
-        $templates->addPath(\dirname(__DIR__, 2) . '/templates', 'FlorentinGarnierSyliusSpamProtectionPlugin');
+        $templates->addPath(\dirname(__DIR__, 3) . '/templates', 'FlorentinGarnierSyliusSpamProtectionPlugin');
 
         $twig = new Environment(new ChainLoader([new ArrayLoader(['page.html.twig' => $page]), $templates]), ['strict_variables' => true]);
         $twig->addExtension(new FormExtension());
@@ -59,6 +64,8 @@ final class SpamProtectionTemplateTest extends TestCase
 
         $form = Forms::createFormFactory()->createBuilder()->add('spam_protection', TextType::class)->getForm();
 
-        return $twig->render('page.html.twig', ['form' => $form->createView()]);
+        $context = ['form' => $form->createView()];
+
+        return $twig->render('page.html.twig', $inHook ? ['hookable_metadata' => ['context' => $context]] : $context);
     }
 }

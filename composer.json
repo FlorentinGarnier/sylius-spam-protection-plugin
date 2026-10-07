@@ -24,11 +24,36 @@
     "require": {
         "php": "^8.2",
         "florentingarnier/spam-protection-bundle": "^0.2",
-        "sylius/sylius": "^1.14"
+        "sylius/sylius": "^1.14 || ^2.0",
+        "symfony/config": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/dependency-injection": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/form": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/http-foundation": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/http-kernel": "^5.4.21 || ^6.4 || ^7.4 || ^8.0"
     },
     "require-dev": {
+        "behat/behat": "^3.16",
+        "dmore/behat-chrome-extension": "^1.4",
+        "dmore/chrome-mink-driver": "^2.9",
+        "friends-of-behat/mink": "^1.11",
+        "friends-of-behat/mink-browserkit-driver": "^1.6",
+        "friends-of-behat/mink-debug-extension": "^2.1",
+        "friends-of-behat/mink-extension": "^2.7",
+        "friends-of-behat/page-object-extension": "^0.3",
+        "friends-of-behat/symfony-extension": "^2.6",
+        "friends-of-behat/variadic-extension": "^1.6",
+        "phpstan/phpstan": "^2.1",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-symfony": "^2.0",
         "phpunit/phpunit": "^10.5 || ^11.5 || ^12.0",
-        "symfony/cache": "^5.4 || ^6.4"
+        "sylius-labs/coding-standard": "^4.4",
+        "sylius/test-application": "^1.14.0@alpha || ^2.0.0@alpha",
+        "symfony/browser-kit": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/cache": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/dotenv": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/framework-bundle": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/runtime": "^5.4.21 || ^6.4 || ^7.4 || ^8.0",
+        "symfony/twig-bridge": "^5.4.21 || ^6.4 || ^7.4 || ^8.0"
     },
     "autoload": {
         "psr-4": {
@@ -37,11 +62,18 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "FlorentinGarnier\\SyliusSpamProtectionPlugin\\Tests\\": "tests/"
+            "Tests\\FlorentinGarnier\\SyliusSpamProtectionPlugin\\": "tests/"
         }
     },
+    "prefer-stable": true,
     "config": {
         "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": false,
+            "php-http/discovery": false,
+            "symfony/flex": true,
+            "symfony/runtime": true
+        },
         "policy": {
             "advisories": {
                 "ignore-id": {
@@ -52,5 +84,8 @@
                 }
             }
         }
+    },
+    "extra": {
+        "public-dir": "vendor/sylius/test-application/public"
     }
 }

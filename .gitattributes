@@ -5,3 +5,10 @@
 /.gitignore export-ignore
 /CONTRIBUTING.md export-ignore
 /CODE_OF_CONDUCT.md export-ignore
+/ecs.php export-ignore
+/phpstan.neon export-ignore
+/assets export-ignore
+/behat.yml.dist export-ignore
+/compose.yml export-ignore
+/etc export-ignore
+/features export-ignore

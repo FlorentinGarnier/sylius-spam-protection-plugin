@@ -1,0 +1,10 @@
+imports:
+    - { resource: "services_test.php" }
+
+monolog:
+    handlers:
+        spam_protection:
+            type: stream
+            path: '%kernel.logs_dir%/spam_protection.log'
+            level: info
+            channels: ['spam_protection']
