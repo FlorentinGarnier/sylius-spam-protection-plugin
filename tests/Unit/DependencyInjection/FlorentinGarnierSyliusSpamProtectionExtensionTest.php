@@ -18,10 +18,12 @@ use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\ContactTypeExtens
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\CustomerRegistrationTypeExtension;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\LiveComponentRenderTypeExtension;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\UserRequestPasswordResetTypeExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Sylius\Bundle\CoreBundle\SyliusCoreBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+#[CoversClass(FlorentinGarnierSyliusSpamProtectionExtension::class)]
 final class FlorentinGarnierSyliusSpamProtectionExtensionTest extends TestCase
 {
     private const TEMPLATE = '@FlorentinGarnierSyliusSpamProtectionPlugin/spam_protection.html.twig';

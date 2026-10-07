@@ -20,6 +20,7 @@ use FlorentinGarnier\SpamProtectionBundle\Form\SpamProtectionType;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\ContactTypeExtension;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\CustomerRegistrationTypeExtension;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\UserRequestPasswordResetTypeExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Sylius\Bundle\CoreBundle\Form\Type\ContactType;
 use Sylius\Bundle\CoreBundle\Form\Type\Customer\CustomerRegistrationType;
@@ -31,6 +32,9 @@ use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[CoversClass(ContactTypeExtension::class)]
+#[CoversClass(CustomerRegistrationTypeExtension::class)]
+#[CoversClass(UserRequestPasswordResetTypeExtension::class)]
 final class SpamProtectionTypeExtensionsTest extends TypeTestCase
 {
     /**

@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace Tests\FlorentinGarnier\SyliusSpamProtectionPlugin\Unit\Templates;
 
+use PHPUnit\Framework\Attributes\CoversNothing;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\Twig\AppVariable;
 use Symfony\Bridge\Twig\Extension\FormExtension;
@@ -27,6 +28,10 @@ use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 
+/**
+ * Covers the Twig template of the plugin, not a PHP class.
+ */
+#[CoversNothing]
 final class SpamProtectionTemplateTest extends TestCase
 {
     private const FIELD = 'name="form[spam_protection]"';

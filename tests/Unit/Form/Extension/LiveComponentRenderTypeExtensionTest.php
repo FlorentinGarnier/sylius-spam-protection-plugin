@@ -18,6 +18,7 @@ use FlorentinGarnier\SpamProtection\IpReputation\IpReputationList;
 use FlorentinGarnier\SpamProtection\SpamProtection;
 use FlorentinGarnier\SpamProtectionBundle\Form\SpamProtectionType;
 use FlorentinGarnier\SyliusSpamProtectionPlugin\Form\Extension\LiveComponentRenderTypeExtension;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Form\FormExtensionInterface;
 use Symfony\Component\Form\FormInterface;
@@ -27,6 +28,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+#[CoversClass(LiveComponentRenderTypeExtension::class)]
 final class LiveComponentRenderTypeExtensionTest extends TypeTestCase
 {
     private RequestStack $requestStack;
