@@ -8,6 +8,18 @@ changes.
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-10-08
+
+### Changed
+
+- Requires florentingarnier/spam-protection-bundle 0.2.2, which translates the rejection message: the visitor
+  of a theme rendering the errors of the form saw its translation key.
+
+### Fixed
+
+- The rejection message rendered by the plugin is recognized by its message template, which remains the
+  translation key once the message is translated.
+
 ## [0.3.0] - 2026-10-07
 
 ### Added
@@ -55,7 +67,8 @@ changes.
   through the shop template events. Supports Sylius 1.12 to 1.14 and requires
   florentingarnier/spam-protection-bundle 0.2.
 
-[Unreleased]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.3.0...v0.3.1
 [0.3.0]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/FlorentinGarnier/sylius-spam-protection-plugin/compare/v0.1.0...v0.2.0
