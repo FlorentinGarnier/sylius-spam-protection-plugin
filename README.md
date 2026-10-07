@@ -93,7 +93,9 @@ and in the forms' Twig hooks on Sylius 2:
 - `sylius_shop.account.forgotten_password.content.form_container.form`
 
 The Sylius shop does not render the errors of these forms, so the plugin also renders its rejection message at the
-top of each form, with a priority of 1000 (block `florentin_garnier_spam_protection_error`).
+top of each form, with a priority of 1000 (block `florentin_garnier_spam_protection_error`). If your theme renders
+the errors of a form itself (`{{ form_errors(form) }}`), remove this block from its event or hook, as shown below,
+so that the message appears once.
 
 If your theme overrides these templates:
 
@@ -102,7 +104,8 @@ If your theme overrides these templates:
   rendered.
 - **It calls neither:** render the field in the form with `{{ form_row(form.spam_protection) }}`.
 
-To remove the block from an event or a hook, for example when your theme renders the field elsewhere:
+To remove a block from an event or a hook, for example when your theme renders the field elsewhere
+(`florentin_garnier_spam_protection`) or the errors of the form (`florentin_garnier_spam_protection_error`):
 
 ```yaml
 # Sylius 1: config/packages/sylius_ui.yaml
