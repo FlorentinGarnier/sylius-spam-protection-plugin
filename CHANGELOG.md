@@ -17,6 +17,8 @@ changes.
 
 ### Changed
 
+- Requires florentingarnier/spam-protection-bundle 0.2.1, whose JavaScript solver no longer leaves some forms
+  unsent in Chrome.
 - The plugin requires the Symfony components it uses directly, in the versions supported by both Sylius and
   florentingarnier/spam-protection-bundle: 5.4, 6.4, 7.4 or 8. The CI tests the PHP and Symfony versions that
   Sylius tests for each of its versions.
